@@ -26,8 +26,9 @@ resource "azurerm_virtual_network" "this" {
 resource "azurerm_subnet" "this" {
   for_each = { for subnet in var.subnets : subnet.name => subnet }
 
-  name                 = "testsubnet"
+  name                 = "${var.subnets[count.index]}"
   resource_group_name  = "${azurerm_resource_group.example.name}"
   virtual_network_name = "${azurerm_virtual_network.this.name}"
-  address_prefixes     = "10.0.1.0/24"
+  address_prefixes     = ["${var.subnet_address_prefix}"]
+  count                = "${length{var.subnets}}"
 }

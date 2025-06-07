@@ -1,7 +1,12 @@
-module "vnet" {
-  source              = "./modules/terraform-azure-vnet"
-  vnet_name           = "my-vnet"
+module "Modules" {
+  source              = "./Modules"
+  vnet_name           = "my_vnet"
   location            = "East US"
-  resource_group_name = "my-resource-group"
+  resource_group_name = "my_resource-group"
   vnet_address_space  = "10.0.0.0/16"
+
+  tags = {
+    environment = "dev"
+    project     = "vnet-module"
+  }
 }
